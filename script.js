@@ -7,10 +7,10 @@ let score = 0;
 //2 - amarelo
 //3 - azul
 
-const blue = document.querySelector('blue');
-const red = document.querySelector('red');
-const green = document.querySelector('green');
-const yellow = document.querySelector('yellow');
+const blue = document.querySelector('.blue');
+const red = document.querySelector('.red');
+const green = document.querySelector('.green');
+const yellow = document.querySelector('.yellow');
 
 let shuffleOrder = () => {
     let colorOrder = Math.floor(Math.random() * 4);
@@ -26,7 +26,7 @@ let shuffleOrder = () => {
 let lightColor = (element, number) => {
     number = number * 500;
     setTimeout(() => {
-        element.classList.add('selected')
+        element.classList.add('selected');
     }, number - 250);
 
     setTimeout(() => {
@@ -54,9 +54,8 @@ let click = (color) => {
 
     setTimeout(() => {
         createColorElement(color).classList.remove('selected');
-    });
-
-    checkOrder();
+        checkOrder();
+    }, 250);
 }
 
 let createColorElement = (color) => {
@@ -70,3 +69,30 @@ let createColorElement = (color) => {
         return blue;
     }
 }
+
+let nextLevel = () => {
+    score++;
+    shuffleOrder();
+}
+
+let gameOver = () => {
+    alert(`Pontuação: ${score}!\nVocê perdeu o jogo!\nClique OK para iniciar um novo jogo!`);
+    order = [];
+    clickOrder = [];
+
+    playGame();
+}
+
+let playGame = () => {
+    alert(`Bem-Vindo ao Gênesis! Novo Jogo!`);
+    score = 0;
+
+    nextLevel();
+}
+
+green.onclick = () => click(0);
+red.onclick = () => click(1);
+yellow.onclick = () => click(2);
+blue.onclick = () => click(3);
+
+playGame();
